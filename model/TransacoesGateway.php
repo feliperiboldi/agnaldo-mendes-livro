@@ -33,6 +33,17 @@ class TransacoesGateway extends Database
 		return $result;
 	}
 
+	public function selectValores()
+	{
+		$pdo = Database::connect();
+		$sql = $pdo->prepare("SELECT SUM(valor) AS saldo FROM transacoes");
+		$sql->execute();
+
+		$result = $sql->fetch(PDO::FETCH_OBJ);
+
+		return $result;
+	}
+
 	public function insert($descricao, $empresa, $valor, $tipo, $dtTransacao)
 	{
 		$pdo = Database::connect();

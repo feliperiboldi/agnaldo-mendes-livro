@@ -46,6 +46,7 @@ class TransacoesController
 	{
 		$orderby = isset($_GET['orderby']) ? $_GET['orderby'] : null;
 		$transacoes = $this->transacoesService->getAllTransacoes($orderby);
+		$saldo = $this->transacoesService->getSaldo();
 		include ROOT_PATH . '../view/transacoes.php';
 
 	}
@@ -73,6 +74,13 @@ class TransacoesController
 			$dtTransacao = isset($_POST['dtTransacao']) 	? trim($_POST['dtTransacao'])   
 					 : null;
 
+			$valor = preg_replace("/[^0-9,]+/i","", $valor);
+			$valor = str_replace(",",".", $valor);
+
+			if(intval($tipo) === 0) {
+				$valor = '-'.$valor;
+			}
+
 			try {
 				$this->transacoesService->createNewTransacao($descricao, $empresa, $valor, $tipo, $dtTransacao);
 				$this->redirect('index.php');
@@ -87,7 +95,7 @@ class TransacoesController
 
 	public function editTransacao()
 	{
-		$title  = "Ediar Evento";
+		$title  = "Ediar Transação";
 
 		$descricao = '';
 		$empresa = '';
@@ -98,7 +106,7 @@ class TransacoesController
 
 		$errors = array();
 
-		$evento = $this->transacoesService->getEvento($id);
+		$transacao = $this->transacoesService->getTransacao($id);
 
 		if (isset($_POST['form-submitted'])) {
 
@@ -111,8 +119,15 @@ class TransacoesController
 			$dtTransacao = isset($_POST['dtTransacao']) 	? trim($_POST['dtTransacao'])   
 					 : null;
 
+			$valor = preg_replace("/[^0-9,]+/i","", $valor);
+			$valor = str_replace(",",".", $valor);
+
+			if(intval($tipo) === 0) {
+				$valor = '-'.$valor;
+			}
+
 			try {
-				$this->transacoesService->editEvento($nome, $numero, $id);
+				$this->transacoesService->editTransacao($descricao, $empresa, $valor, $tipo, $dtTransacao, $id);
 				$this->redirect('index.php');
 				return;
 			} catch(ValidationException $e) {
@@ -120,7 +135,7 @@ class TransacoesController
 			}
 		}
 		// Include in the view of the edit form
-		include ROOT_PATH.DIRECTORY_SEPARATOR.'view'.DIRECTORY_SEPARATOR.'evento-form-edit.php';
+		include ROOT_PATH.DIRECTORY_SEPARATOR.'view'.DIRECTORY_SEPARATOR.'transacao-form-edit.php';
 	}
 
 	public function deleteTransacao()
@@ -129,7 +144,7 @@ class TransacoesController
 			if (!$id) {
 				throw new Exception('Internal error');
 			}
-			$this->transacoesService->deleteEvento($id);
+			$this->transacoesService->deleteTransacao($id);
 
 			$this->redirect('index.php');
 	}
@@ -147,6 +162,14 @@ class TransacoesController
 
 		include ROOT_PATH.DIRECTORY_SEPARATOR.'view'.DIRECTORY_SEPARATOR.'evento.php';
 	}
+
+	public static function converteMoeda($get_valor) 
+	{
+        $source = array('.', ',');
+        $replace = array('', '.');
+        $valor = str_replace($source, $replace, $get_valor);
+        return $valor; 
+    }
 
 	public function showError($title, $message)
 	{

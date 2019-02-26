@@ -1,7 +1,7 @@
 <?php require_once "header.php"; ?>
 
 <div class="container">
-	<h3>Adicionar nova Transacao</h3>
+	<h3>Adicionar Transação</h3>
 </div>
 
 <?php
@@ -30,7 +30,7 @@
 
 				<div class="form-group">
 					<label for="valor">Valor: </label><br>
-					<input type="text" class="form-control" id="valor" name="valor" value="<?php echo htmlentities($valor); ?>" placeholder="Digite o Valor">
+					<input type="text" class="form-control" id="valor" name="valor" value="<?php echo htmlentities($valor); ?>" placeholder="Digite o Valor" onKeyPress="return(moeda(this,'.',',',event))"> 
 				</div>
 
 				<div class="form-group">
@@ -58,6 +58,5 @@
 		</div>
 	</div>
 </div>		
-
 
 <?php require_once "footer.php"; ?>

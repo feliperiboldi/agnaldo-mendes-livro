@@ -1,5 +1,9 @@
-<?php require_once "heaer.php"; ?>
-<h3>Adicionar Novo Evento</h3>
+<?php require_once "header.php"; ?>
+
+<div class="container">
+	<h3>Editar Transação</h3>
+</div>
+
 <?php
 	if ($errors) {
 		echo '<ul class="errors">';
@@ -9,18 +13,51 @@
 		echo '</ul>';
 	}
 ?>
-		
-<form method="post" action="">
-	<label for="nome">Nome do Evento: </label><br>
-	<input type="text" name="nome" value="<?php echo htmlentities($evento->nome); ?>">
-	<br/>
-	<label for="numero">Número de Vagas: </label><br>
-	<input type="text" name="numero" value="<?php echo htmlentities($evento->numero); ?>">
-	<br/>
 
-	<input type="hidden" name="form-submitted" value="1">
-	<input type="submit" value="Editar">
-	<button type="button" onclick="location.href='index.php'">Cancelar</button>
-</form>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<form method="post" action="">
+				<div class="form-group">
+					<label for="descricao">Descrição: </label><br>
+					<textarea cols="8" rows="08" class="form-control" name="descricao" value="<?php echo htmlentities($transacao->descricao); ?>" placeholder="Digite a Descrição"><?php echo htmlentities($transacao->descricao); ?></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="empresa">Empresa: </label><br>
+					<input type="text" class="form-control" name="empresa" value="<?php echo htmlentities($transacao->empresa); ?>" placeholder="Digite a Empresa">
+				</div>
+
+				<div class="form-group">
+					<label for="valor">Valor: </label><br>
+					<input type="text" class="form-control" id="valor" name="valor" value="<?php echo htmlentities($transacao->valor); ?>" placeholder="Digite o Valor" onKeyPress="return(moeda(this,'.',',',event))"> 
+				</div>
+
+				<div class="form-group">
+					<label class="radio-inline">
+						<input type="radio" name="tipo" value="1">
+						Crédito
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="tipo" value="0">
+						Débito
+					</label>
+				</div>
+
+				<div class="form-group">
+					<label for="dtTransacao">Data da Transação: </label><br>
+					<input type="date" class="form-control" name="dtTransacao" value="<?php echo htmlentities($transacao->dtTransacao); ?>" placeholder="Digite a Empresa">
+				</div>
+
+				<div class="form-group">
+					<input type="hidden" name="form-submitted" value="1">
+					<button type="submit" class="btn btn-primary">Enviar</button>
+					<button type="button" class="btn btn-danger" onclick="location.href='index.php'">Cancelar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>		
+		
 
 <?php require_once "footer.php"; ?>

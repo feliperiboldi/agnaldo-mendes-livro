@@ -7,10 +7,14 @@
 	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/vendors/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/vendors/font-awesome/font-awesome.min.css">
+    <!-- DataTable -->
+    <link rel="stylesheet" href="./assets/vendors/datatable/css/dataTables.bootstrap4.min.css"/>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./assets/css/main.css"/>
 
-    <title>Hello, world!</title>
+    <title>Agnaldo Mendes</title>
   </head>
   <body>

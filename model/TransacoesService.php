@@ -39,6 +39,19 @@ class TransacoesService extends TransacoesGateway
 		return $this->transacoesGateway->selectById($id);
 	}
 
+	public function getSaldo()
+	{
+		try {
+			self::connect();
+			$result = $this->transacoesGateway->selectValores();
+			self::disconnect();
+			return $result;
+		} catch(Exception $e) {
+			self::disconnect();
+			throw $e;
+		}
+	}
+
 	public function createNewTransacao($descricao, $empresa, $valor, $tipo, $dtTransacao)
 	{
 		try {
@@ -53,11 +66,11 @@ class TransacoesService extends TransacoesGateway
 		}
 	}
 
-	public function editTransaca($nome, $numero, $id)
+	public function editTransacao($descricao, $empresa, $valor, $tipo, $dtTransacao, $id)
 	{
 		try {
 			self::connect();
-			$result = $this->transacoesGateway->edit($nome, $numero, $id);
+			$result = $this->transacoesGateway->edit($descricao, $empresa, $valor, $tipo, $dtTransacao, $id);
 			self::disconnect();
 		}catch(Exception $e) {
 			self::disconnect();
@@ -65,7 +78,7 @@ class TransacoesService extends TransacoesGateway
 		}
 	}
 
-	public function deleteTransaca($id)
+	public function deleteTransacao($id)
 	{
 		try {
 			self::connect();

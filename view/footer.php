@@ -1,24 +1,52 @@
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-  	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
- 	crossorigin="anonymous"></script>
- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="./assets/vendors/jquery/jquery-3.3.1.min.js"></script>
+    <script src="./assets/vendors/datatable/js/jquery.dataTables.js"></script>
+ 	<script src="./assets/vendors/datatable/js/dataTables.bootstrap4.js"></script>
+    <script src="./assets/vendors/popperjs/popper.min.js"></script>
+    <script src="./assets/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script>
-   	 $(document).ready(function(){
-    $("#valor").inputmask( 'currency',{"autoUnmask": true,
-            radixPoint:",",
-            groupSeparator: ".",
-            allowMinus: false,
-            prefix: 'R$ ',            
-            digits: 2,
-            digitsOptional: false,
-            rightAlign: true,
-            unmaskAsNumber: true
-    });   
+        function moeda(a, e, r, t) {
+            let n = ""
+              , h = j = 0
+              , u = tamanho2 = 0
+              , l = ajd2 = ""
+              , o = window.Event ? t.which : t.keyCode;
+            if (13 == o || 8 == o)
+                return !0;
+            if (n = String.fromCharCode(o),
+            -1 == "0123456789".indexOf(n))
+                return !1;
+            for (u = a.value.length,
+            h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++)
+                ;
+            for (l = ""; h < u; h++)
+                -1 != "0123456789".indexOf(a.value.charAt(h)) && (l += a.value.charAt(h));
+            if (l += n,
+            0 == (u = l.length) && (a.value = ""),
+            1 == u && (a.value = "0" + r + "0" + l),
+            2 == u && (a.value = "0" + r + l),
+            u > 2) {
+                for (ajd2 = "",
+                j = 0,
+                h = u - 3; h >= 0; h--)
+                    3 == j && (ajd2 += e,
+                    j = 0),
+                    ajd2 += l.charAt(h),
+                    j++;
+                for (a.value = "",
+                tamanho2 = ajd2.length,
+                h = tamanho2 - 1; h >= 0; h--)
+                    a.value += ajd2.charAt(h);
+                a.value += r + l.substr(u - 2, u)
+            }
+            return !1
+        }
+
+        $(document).ready( function () {
+            $('#transacoes').DataTable();
+        })
 	</script>
   </body>
 </html>
